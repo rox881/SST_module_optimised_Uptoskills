@@ -62,26 +62,83 @@ It simulates authentic field conditions (non-scripted speech) — perfect for te
   - 4 configurations tested: Base/Medium × VAD on/off  
   - Results aggregated and saved as CSV
 
-## 🚀 How to Run (Colab)
+## 🚀 How to Run
 
-1. Upload the dataset file:  
-   `1764158905630-sps-corpus-1.0-2025-11-25-en.tar.gz`
+> **Two files are included in this project:**
+> | File | Purpose | How to Run |
+> |------|---------|------------|
+> | `sst_uptoskill_optimisation_task.py` | Main pipeline script | Run locally via Python |
+> | `SST_UpTOSkill_Optimisation_Task.ipynb` | Notebook version | Run on Google Colab or Jupyter |
 
-2. Install dependencies (run once):
+---
+
+### 🐍 Option 1: Python Script — `sst_uptoskill_optimisation_task.py` (Local)
+
+**Setup:**
+
+1. **Clone the repository:**
    ```bash
-   !pip install -q faster-whisper jiwer pandas tqdm librosa torch torchaudio
+   git clone https://github.com/rox881/SST_module_optimised_Uptoskills.git
+   cd SST_module_optimised_Uptoskills
    ```
 
-3. Run the main pipeline cell (CELL 2):
+2. **Install all dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+   > ⚠️ On Linux, also install system audio/video drivers:
+   > ```bash
+   > sudo apt install -y ffmpeg libportaudio2
+   > ```
+
+3. **Place the dataset file in the project root:**  
+   `1764158905630-sps-corpus-1.0-2025-11-25-en.tar.gz`
+
+**Run:**
+```bash
+python sst_uptoskill_optimisation_task.py
+```
+
+**Output:**
+- Console table with WER / CER / insertions / time per configuration
+- `HIGH_GRADE_MODEL_COMPARISON.csv` saved in the current directory
+
+---
+
+### 📓 Option 2: Jupyter Notebook — `SST_UpTOSkill_Optimisation_Task.ipynb` (Colab / Jupyter)
+
+**Setup on Google Colab:**
+
+1. Upload the notebook file `SST_UpTOSkill_Optimisation_Task.ipynb` to Colab, **or** open it directly from GitHub.
+
+2. Upload the dataset file in Colab:  
+   `1764158905630-sps-corpus-1.0-2025-11-25-en.tar.gz`
+
+3. Run **CELL 1** to install dependencies (run once):
+   ```python
+   !pip install -q faster-whisper jiwer pandas tqdm librosa torch torchaudio sounddevice
+   !apt update -qq && apt install -y -qq ffmpeg libportaudio2
+   ```
+
+**Setup on Jupyter (Local):**
+
+1. Install dependencies first:
+   ```bash
+   pip install -r requirements.txt
+   ```
+2. Launch Jupyter:
+   ```bash
+   jupyter notebook SST_UpTOSkill_Optimisation_Task.ipynb
+   ```
+
+**Run:**
+
+- Execute **CELL 2** (main pipeline) — it will:
    - Auto-extracts the `.tar.gz`
    - Processes 150 clips
    - Tests 4 configurations
    - Prints comparison table
    - **Automatically downloads** `HIGH_GRADE_MODEL_COMPARISON.csv`
-
-**Output:**
-- Console table with WER/CER/insertions/time
-- Downloaded CSV report ready for mentor submission
 
 ## 📊 Example Results (150 clips)
 

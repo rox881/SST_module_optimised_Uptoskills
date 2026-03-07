@@ -1,0 +1,8 @@
+faster-whisper
+jiwer
+pandas
+tqdm
+librosa
+torch
+torchaudio
+sounddevice
