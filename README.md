@@ -64,17 +64,16 @@ It simulates authentic field conditions (non-scripted speech) — perfect for te
 
 ## 🚀 How to Run
 
-> **Two files are included in this project:**
+> **Three files are included in this project:**
 > | File | Purpose | How to Run |
 > |------|---------|------------|
-> | `sst_uptoskill_optimisation_task.py` | Main pipeline script | Run locally via Python |
-> | `SST_UpTOSkill_Optimisation_Task.ipynb` | Notebook version | Run on Google Colab or Jupyter |
+> | `sst_uptoskill_optimisation_task.py` | Main evaluation pipeline (dataset benchmarking) | Run locally via Python |
+> | `SST_UpTOSkill_Optimisation_Task.ipynb` | Notebook version of the evaluation pipeline | Run on Google Colab or Jupyter |
+> | `high_grade_live_stt.py` | **Live microphone** + file-by-file transcription | Run locally via Python |
 
 ---
 
-### 🐍 Option 1: Python Script — `sst_uptoskill_optimisation_task.py` (Local)
-
-**Setup:**
+### 🔧 Common Setup (All Options)
 
 1. **Clone the repository:**
    ```bash
@@ -82,22 +81,38 @@ It simulates authentic field conditions (non-scripted speech) — perfect for te
    cd SST_module_optimised_Uptoskills
    ```
 
-2. **Install all dependencies:**
+2. **Install dependencies** — choose **pip** or **conda**:
+
+   **Using pip:**
    ```bash
    pip install -r requirements.txt
    ```
+
+   **Using conda (recommended):**
+   ```bash
+   conda create -n stt_env python=3.10 -y
+   conda activate stt_env
+   pip install -r requirements.txt
+   ```
+
    > ⚠️ On Linux, also install system audio/video drivers:
    > ```bash
    > sudo apt install -y ffmpeg libportaudio2
    > ```
 
-3. **Place the dataset file in the project root:**  
+---
+
+### 🐍 Option 1: Evaluation Pipeline — `sst_uptoskill_optimisation_task.py`
+
+**What it does:** Runs the full benchmark evaluation on the Mozilla Spontaneous Speech dataset (150 clips, 4 model configurations).
+
+1. Place the dataset file in the project root:  
    `1764158905630-sps-corpus-1.0-2025-11-25-en.tar.gz`
 
-**Run:**
-```bash
-python sst_uptoskill_optimisation_task.py
-```
+2. Run:
+   ```bash
+   python sst_uptoskill_optimisation_task.py
+   ```
 
 **Output:**
 - Console table with WER / CER / insertions / time per configuration
@@ -134,11 +149,33 @@ python sst_uptoskill_optimisation_task.py
 **Run:**
 
 - Execute **CELL 2** (main pipeline) — it will:
-   - Auto-extracts the `.tar.gz`
-   - Processes 150 clips
-   - Tests 4 configurations
-   - Prints comparison table
-   - **Automatically downloads** `HIGH_GRADE_MODEL_COMPARISON.csv`
+   - Auto-extract the `.tar.gz`
+   - Process 150 clips
+   - Test 4 configurations
+   - Print comparison table
+   - **Automatically download** `HIGH_GRADE_MODEL_COMPARISON.csv`
+
+---
+
+### 🎤 Option 3: Live Transcription — `high_grade_live_stt.py`
+
+**What it does:** Real-time speech-to-text using your microphone **or** transcribe audio files one by one. Works offline on your local machine and also supports Google Colab (file mode only).
+
+**Run:**
+```bash
+python high_grade_live_stt.py
+```
+
+You will be prompted to choose a mode:
+
+| Mode | Description |
+|------|-------------|
+| **1 — Live Microphone** | Streams audio from your mic in real time and prints transcriptions as you speak. Press `Ctrl+C` to stop. *(Desktop/laptop only — not available in Colab)* |
+| **2 — File Upload** | Transcribe audio files one at a time. In Colab it uses the upload dialog; locally it asks for the file path. |
+
+**Output:**
+- Live text printed to the console as you speak (mode 1) or after each file (mode 2)
+- All transcriptions saved to `high_grade_transcript.txt`
 
 ## 📊 Example Results (150 clips)
 
@@ -170,7 +207,7 @@ Intern – Speech-to-Text Optimization
 Email: gauravkshirsagar888@gmail.com  
 LinkedIn: [https://linkedin.com/in/gaurav-kshirsagar-link/](https://linkedin.com/in/gaurav-kshirsagar-link/)  
 
-**Last Updated:** March 07, 2026
+**Last Updated:** March 10, 2026
 
 ---
 
